@@ -8,34 +8,36 @@ import java.util.Map;
 
 @RestController
 public class Controller_home {
-    private Map<String,String> records = new HashMap<>();
+    private static int idCount = 0;
+    private Map<Integer ,DataObject> records = new HashMap<>();
     @GetMapping("/")
     public String sayHi(){
         return getIndexFile();
     }
 
     @PostMapping("/todo")
-    public Map<String,String> recordData(DataObject o){
+    public Map<Integer,DataObject> recordData(DataObject o){
         System.out.println("recorded");
-        records.put(o.getName(),o.getCity());
+        o.setId(++idCount);
+        records.put(o.getId(),o);
         return records;
     }
 
     @GetMapping("/todo")
-    public Map<String,String> getdata(){
+    public Map<Integer,DataObject> getdata(){
         return records;
     }
 
     @DeleteMapping("/todo")
-    public Map<String,String> deleteData(Query query){
-        records.remove(query.getSearchKey());
+    public Map<Integer,DataObject> deleteData(DataObject o){
+        records.remove(o.getId());
         return records;
     }
 
     @PutMapping("/todo")
-    public Map<String,String> updateData(DataObject o){
-        records.remove(o.getName());
-        records.put(o.getName(),o.getCity());
+    public Map<Integer,DataObject> updateData(DataObject o){
+        if(records.containsKey(o.getId()))
+            records.put(o.getId(),o);
         return records;
     }
     private String getIndexFile()

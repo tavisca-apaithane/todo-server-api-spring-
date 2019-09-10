@@ -1,4 +1,4 @@
-package com.example.demo;
+package hello;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
@@ -7,6 +7,8 @@ import javax.xml.crypto.Data;
 public class DataObject {
     private String name;
     private String city;
+    private  int id=0;
+
 
     public int getId() {
         return id;
@@ -16,7 +18,6 @@ public class DataObject {
         this.id = id;
     }
 
-    private  int id=0;
     public DataObject(String name, String city){
         this.name = name;
         this.city = city;

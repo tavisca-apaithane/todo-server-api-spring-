@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="frontendcss.css">
+    <script type="text/javascript" src="todofrontend.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<header>
+    <h1>CREATE TODO</h1>
+</header>
+<hr>
+<div class="container">
+    <div class="navigation">
+        <ul>
+            <li><button  onclick="travel()" class="navigation-button button1" >user</button></li>
+            <li><button class="navigation-button button2">data</button></li>
+            <li><button class="navigation-button button3">data</button></li>
+            <li><button class="navigation-button button4">data</button></li>
+        </ul>
+    </div>
+
+    <div class="textArea">
+        <table class="table" id="table">
+        </table>
+    </div>
+    <div class="addNewTask">
+        <form method="get" action="localhost:8080/recordData">
+            <input id="key" placeholder="Add Task">
+            <input id="value" placeholder="Description">
+            <button class="mains"  onclick="postData()" class="operators">add</button>
+        </form>
+        <button class="mains"  onclick="renderTable()" class="operators">show</button>
+    </div>
+</div>
+<hr>
+</body>
+</html>

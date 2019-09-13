@@ -6,42 +6,39 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.omg.CORBA.OBJECT_NOT_EXIST;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 public class GreetingController {
 
-    private static int idCount = 0;
-    private Map<Integer ,DataObject> records = new HashMap<>();
+@Autowired
+    private Service service;
 
     @PostMapping("/todo")
     public ResponseEntity<Object> recordData(@RequestBody DataObject o){
-        o.setId(++idCount);
-        records.put(o.getId(),o);
-        System.out.println(o.getName());
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+
+         service.recordData(o);
+         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/todo")
-    public Map<Integer, DataObject> getdata(){
-        return records;
+    public ResponseEntity<Object> getdata() {
+        return new ResponseEntity<>(service.getData(),HttpStatus.OK);
     }
 
-
-
-    @DeleteMapping("/todo")
-    public Map<Integer,DataObject> deleteData(@RequestBody DataObject o){
-        System.out.println(o.getName());
-        records.remove(o.getId());
-        return records;
+    @DeleteMapping("/todo/{id}")
+    public ResponseEntity<Object> deleteData(@PathVariable("id") int id){
+        return new ResponseEntity<>(service.deleteData(id),HttpStatus.OK);
     }
 
     @PutMapping("/todo")
-    public Map<Integer,DataObject> updateData(@RequestBody DataObject o){
-        records.put(o.getId(), o);
-        return records;
+    public Map<Integer, DataObject> updateData(@RequestBody DataObject o){
+        return service.updateData(o);
     }
 
 }

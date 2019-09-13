@@ -22,7 +22,11 @@ public class DataObject {
         this.name = name;
         this.city = city;
     }
-
+    public DataObject (String name, String city, int id){
+        this.name = name;
+        this.city = city;
+        this.id = id;
+    }
     public DataObject(){}
     public String getName() {
         return name;
